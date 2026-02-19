@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "Ahmed Raza",
+    "age": 32,
+    "gender": "Male",
+    "disease": "Diabetes Type 2",
+    "phone": "0300-1234567",
+    "city": "Lahore"
+  },
+  {
+    "id": 2,
+    "name": "Fatima Noor",
+    "age": 27,
+    "gender": "Female",
+    "disease": "Hypertension",
+    "phone": "0321-9988776",
+    "city": "Karachi"
+  },
+  {
+    "id": 3,
+    "name": "Muhammad Ali",
+    "age": 45,
+    "gender": "Male",
+    "disease": "Heart Disease",
+    "phone": "0333-5544332",
+    "city": "Islamabad"
+  },
+  {
+    "id": 4,
+    "name": "Ayesha Khan",
+    "age": 30,
+    "gender": "Female",
+    "disease": "Asthma",
+    "phone": "0312-6677889",
+    "city": "Rawalpindi"
+  },
+  {
+    "id": 5,
+    "name": "Hassan Javed",
+    "age": 51,
+    "gender": "Male",
+    "disease": "Kidney Failure",
+    "phone": "0345-2244668",
+    "city": "Faisalabad"
+  },
+  {
+    "id": 6,
+    "name": "Sana Malik",
+    "age": 38,
+    "gender": "Female",
+    "disease": "Thyroid Disorder",
+    "phone": "0308-8877665",
+    "city": "Multan"
+  },
+  {
+    "id": 7,
+    "name": "Bilal Ahmed",
+    "age": 29,
+    "gender": "Male",
+    "disease": "Migraine",
+    "phone": "0331-1122334",
+    "city": "Peshawar"
+  },
+  {
+    "id": 8,
+    "name": "Hira Shah",
+    "age": 22,
+    "gender": "Female",
+    "disease": "Allergy",
+    "phone": "0322-7755443",
+    "city": "Quetta"
+  },
+  {
+    "id": 9,
+    "name": "Usman Khan",
+    "age": 60,
+    "gender": "Male",
+    "disease": "Arthritis",
+    "phone": "0340-9988771",
+    "city": "Sialkot"
+  },
+  {
+    "id": 10,
+    "name": "Zainab Akhtar",
+    "age": 34,
+    "gender": "Female",
+    "disease": "Depression",
+    "phone": "0311-5566778",
+    "city": "Hyderabad"
+  }
+]
