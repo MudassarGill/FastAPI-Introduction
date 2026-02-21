@@ -133,3 +133,18 @@ def update_patient(patient_id: int, patient_update: PatientUpdate):
     data[index] = patient_obj.model_dump()
     save_data(data)
     return JSONResponse(content={"message": "Patient updated successfully"})
+@app.delete("/delete/{patient_id}")
+def delete_patient(patient_id: int):
+    data = load_data()
+    
+    # Find index of patient with the given ID
+    index = next((i for i, p in enumerate(data) if p["id"] == patient_id), None)
+    
+    if index is None:
+        raise HTTPException(status_code=404, detail="Patient ID not found")
+    
+    # Remove patient from list
+    deleted_patient = data.pop(index)
+    
+    save_data(data)
+    return JSONResponse(content={"message": f"Patient '{deleted_patient['name']}' deleted successfully"})

@@ -11,19 +11,6 @@
         "weight": 70.0
     },
     {
-        "id": 2,
-        "name": "Iqra",
-        "age": 10,
-        "gender": "Male",
-        "disease": "string",
-        "phone": "string",
-        "city": "string",
-        "height": 1.0,
-        "weight": 1.0,
-        "bmi": 1.0,
-        "verdict": "Underweight"
-    },
-    {
         "id": 3,
         "name": "Muhammad Ali",
         "age": 45,
