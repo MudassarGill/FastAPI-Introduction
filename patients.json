@@ -1,92 +1,158 @@
 [
-  {
-    "id": 1,
-    "name": "Ahmed Raza",
-    "age": 32,
-    "gender": "Male",
-    "disease": "Diabetes Type 2",
-    "phone": "0300-1234567",
-    "city": "Lahore"
-  },
-  {
-    "id": 2,
-    "name": "Fatima Noor",
-    "age": 27,
-    "gender": "Female",
-    "disease": "Hypertension",
-    "phone": "0321-9988776",
-    "city": "Karachi"
-  },
-  {
-    "id": 3,
-    "name": "Muhammad Ali",
-    "age": 45,
-    "gender": "Male",
-    "disease": "Heart Disease",
-    "phone": "0333-5544332",
-    "city": "Islamabad"
-  },
-  {
-    "id": 4,
-    "name": "Ayesha Khan",
-    "age": 30,
-    "gender": "Female",
-    "disease": "Asthma",
-    "phone": "0312-6677889",
-    "city": "Rawalpindi"
-  },
-  {
-    "id": 5,
-    "name": "Hassan Javed",
-    "age": 51,
-    "gender": "Male",
-    "disease": "Kidney Failure",
-    "phone": "0345-2244668",
-    "city": "Faisalabad"
-  },
-  {
-    "id": 6,
-    "name": "Sana Malik",
-    "age": 38,
-    "gender": "Female",
-    "disease": "Thyroid Disorder",
-    "phone": "0308-8877665",
-    "city": "Multan"
-  },
-  {
-    "id": 7,
-    "name": "Bilal Ahmed",
-    "age": 29,
-    "gender": "Male",
-    "disease": "Migraine",
-    "phone": "0331-1122334",
-    "city": "Peshawar"
-  },
-  {
-    "id": 8,
-    "name": "Hira Shah",
-    "age": 22,
-    "gender": "Female",
-    "disease": "Allergy",
-    "phone": "0322-7755443",
-    "city": "Quetta"
-  },
-  {
-    "id": 9,
-    "name": "Usman Khan",
-    "age": 60,
-    "gender": "Male",
-    "disease": "Arthritis",
-    "phone": "0340-9988771",
-    "city": "Sialkot"
-  },
-  {
-    "id": 10,
-    "name": "Zainab Akhtar",
-    "age": 34,
-    "gender": "Female",
-    "disease": "Depression",
-    "phone": "0311-5566778",
-    "city": "Hyderabad"
-  }
+    {
+        "id": 1,
+        "name": "Ahmed Raza",
+        "age": 32,
+        "gender": "Male",
+        "Height": "5.11",
+        "Weight": "70",
+        "BMI": "23.5",
+        "Verdict": "Normal",
+        "disease": "Diabetes Type 2",
+        "phone": "0300-1234567",
+        "city": "Lahore"
+    },
+    {
+        "id": 2,
+        "name": "Fatima Noor",
+        "age": 27,
+        "gender": "Female",
+        "Height": "5.5",
+        "Weight": "60",
+        "BMI": "22.2",
+        "Verdict": "Normal",
+        "disease": "Hypertension",
+        "phone": "0321-9988776",
+        "city": "Karachi"
+    },
+    {
+        "id": 3,
+        "name": "Muhammad Ali",
+        "age": 45,
+        "gender": "Male",
+        "Height": "5.10",
+        "Weight": "80",
+        "BMI": "24.7",
+        "Verdict": "Overweight",
+        "disease": "Heart Disease",
+        "phone": "0333-5544332",
+        "city": "Islamabad"
+    },
+    {
+        "id": 4,
+        "name": "Ayesha Khan",
+        "age": 30,
+        "gender": "Female",
+        "Height": "5.6",
+        "Weight": "65",
+        "BMI": "23.8",
+        "Verdict": "Normal",
+        "disease": "Asthma",
+        "phone": "0312-6677889",
+        "city": "Rawalpindi"
+    },
+    {
+        "id": 5,
+        "name": "Hassan Javed",
+        "age": 51,
+        "gender": "Male",
+        "Height": "5.9",
+        "Weight": "75",
+        "BMI": "24.1",
+        "Verdict": "Overweight",
+        "disease": "Kidney Failure",
+        "phone": "0345-2244668",
+        "city": "Faisalabad"
+    },
+    {
+        "id": 6,
+        "name": "Sana Malik",
+        "age": 38,
+        "gender": "Female",
+        "Height": "5.7",
+        "Weight": "68",
+        "BMI": "23.3",
+        "Verdict": "Normal",
+        "disease": "Thyroid Disorder",
+        "phone": "0308-8877665",
+        "city": "Multan"
+    },
+    {
+        "id": 7,
+        "name": "Bilal Ahmed",
+        "age": 29,
+        "gender": "Male",
+        "Height": "5.8",
+        "Weight": "72",
+        "BMI": "22.9",
+        "Verdict": "Normal",
+        "disease": "Migraine",
+        "phone": "0331-1122334",
+        "city": "Peshawar"
+    },
+    {
+        "id": 8,
+        "name": "Hira Shah",
+        "age": 22,
+        "gender": "Female",
+        "Height": "5.4",
+        "Weight": "58",
+        "BMI": "21.5",
+        "Verdict": "Normal",
+        "disease": "Allergy",
+        "phone": "0322-7755443",
+        "city": "Quetta"
+    },
+    {
+        "id": 9,
+        "name": "Usman Khan",
+        "age": 60,
+        "gender": "Male",
+        "Height": "5.10",
+        "Weight": "78",
+        "BMI": "24.4",
+        "Verdict": "Overweight",
+        "disease": "Arthritis",
+        "phone": "0340-9988771",
+        "city": "Sialkot"
+    },
+    {
+        "id": 10,
+        "name": "Zainab Akhtar",
+        "age": 34,
+        "gender": "Female",
+        "Height": "5.6",
+        "Weight": "62",
+        "BMI": "22.6",
+        "Verdict": "Normal",
+        "disease": "Depression",
+        "phone": "0311-5566778",
+        "city": "Hyderabad"
+    },
+    {
+        "id": 11,
+        "name": "Mudassar Hussain",
+        "age": 20,
+        "gender": "Male",
+        "disease": "Diabetes Type 2",
+        "phone": "0300-1234567",
+        "city": "Lahore",
+        "height": 5.11,
+        "weight": 70.0,
+        "bmi": 2.68,
+        "verdict": "Underweight"
+    },
+    {
+        "id": 12,
+        "name": "Ahad",
+        "age": 32,
+        "gender": "Male",
+        "disease": "Diabetes Type 2",
+        "phone": "0300-1234567",
+        "city": "Lahore",
+        "height": 5.11,
+        "weight": 50.0,
+        "bmi": 1.91,
+        "verdict": "Underweight"
+    }
 ]
