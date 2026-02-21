@@ -1,8 +1,7 @@
 from fastapi import FastAPI, Path, HTTPException, Query
-from pydantic import BaseModel, Field, computed_field,Annotated
-from typing import Literal, List,Optional
+from pydantic import BaseModel, Field, computed_field
+from typing import Annotated, Optional, Literal, List
 from fastapi.responses import JSONResponse
-from typing_extensions import Annotated
 import json
 import os
 
@@ -17,8 +16,8 @@ class Patient(BaseModel):
     disease: str = Field(..., description="Patient Disease", example="Diabetes Type 2")
     phone: str = Field(..., description="Patient Phone", example="0300-1234567")
     city: str = Field(..., description="Patient City", example="Lahore")
-    height: float = Field(..., gt=0, description="Patient Height", example=5.11)
-    weight: float = Field(..., gt=0, description="Patient Weight", example=70)
+    height: float = Field(..., gt=0, description="Patient Height in feet", example=5.11)
+    weight: float = Field(..., gt=0, description="Patient Weight in kg", example=70.0)
 
     @computed_field
     @property
@@ -36,31 +35,42 @@ class Patient(BaseModel):
             return "Overweight"
         else:
             return "Obesity"
+
 class PatientUpdate(BaseModel):
     name: Annotated[Optional[str], Field(default=None)]
-    age: Annotated[Optional[int], Field(default=None,gt=0,lt=120)]
+    age: Annotated[Optional[int], Field(default=None, gt=0, lt=120)]
     gender: Annotated[Optional[Literal["Male", "Female", "Other"]], Field(default=None)]
     disease: Annotated[Optional[str], Field(default=None)]
     phone: Annotated[Optional[str], Field(default=None)]
     city: Annotated[Optional[str], Field(default=None)]
-    height: Annotated[Optional[float], Field(default=None,gt=0)]
-    weight: Annotated[Optional[float], Field(default=None,gt=0)]
+    height: Annotated[Optional[float], Field(default=None, gt=0)]
+    weight: Annotated[Optional[float], Field(default=None, gt=0)]
 
-# --- Helper functions for JSON storage ---
+# --- JSON storage ---
 PATIENTS_FILE = "patients.json"
 
 def load_data() -> List[dict]:
     if not os.path.exists(PATIENTS_FILE):
         return []
     with open(PATIENTS_FILE, "r") as file:
-        return json.load(file)
+        data = json.load(file)
+        # Normalize keys for consistency
+        for p in data:
+            if "Height" in p:
+                p["height"] = float(p.pop("Height"))
+            if "Weight" in p:
+                p["weight"] = float(p.pop("Weight"))
+            if "BMI" in p:
+                p.pop("BMI")
+            if "Verdict" in p:
+                p.pop("Verdict")
+        return data
 
 def save_data(data: List[dict]):
     with open(PATIENTS_FILE, "w") as file:
         json.dump(data, file, indent=4)
 
 # --- Routes ---
-
 @app.get("/")
 def hello():
     return {"message": "Hello World I am Mudassar Gill"}
@@ -93,18 +103,16 @@ def sort_patients(
         raise HTTPException(status_code=400, detail="Invalid order parameter. Must be 'asc' or 'desc'")
     
     data = load_data()
-    reverse_order = True if order == "desc" else False
+    reverse_order = order == "desc"
     sorted_data = sorted(data, key=lambda x: x.get(sort_by), reverse=reverse_order)
     return sorted_data
 
 @app.post("/create")
 def create_patient(patient: Patient):
     data = load_data()
-    # Check if patient ID already exists
     if any(p["id"] == patient.id for p in data):
         raise HTTPException(status_code=400, detail="Patient already exists")
     
-    # Append new patient
     data.append(patient.model_dump())
     save_data(data)
     return JSONResponse(content={"message": "Patient created successfully"})
@@ -112,25 +120,16 @@ def create_patient(patient: Patient):
 @app.put("/edit/{patient_id}")
 def update_patient(patient_id: int, patient_update: PatientUpdate):
     data = load_data()
-
-    # FIX 1: find index by id
-    patient_index = next((i for i, p in enumerate(data) if p["id"] == patient_id), None)
-    if patient_index is None:
+    index = next((i for i, p in enumerate(data) if p["id"] == patient_id), None)
+    if index is None:
         raise HTTPException(status_code=404, detail="Patient ID not found")
 
-    existing_patient_info = data[patient_index]
+    existing_patient = data[index]
+    updates = patient_update.model_dump(exclude_unset=True)
+    existing_patient.update(updates)
 
-    update_patient_info = patient_update.model_dump(exclude_unset=True)
-    existing_patient_info.update(update_patient_info)
-
-    existing_patient_info["id"] = patient_id
-
-    patient_pydantic_obj = Patient(**existing_patient_info)
-
-    existing_patient_info = patient_pydantic_obj.model_dump(exclude={"id"})
-    data[patient_index] = existing_patient_info
-
+    # Recompute BMI and verdict by re-creating Pydantic object
+    patient_obj = Patient(**existing_patient)
+    data[index] = patient_obj.model_dump()
     save_data(data)
     return JSONResponse(content={"message": "Patient updated successfully"})
-    
-    
