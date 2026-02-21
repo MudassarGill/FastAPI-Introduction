@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Path, HTTPException, Query
-from pydantic import BaseModel, Field, computed_field
+from pydantic import BaseModel, Field, computed_field,Annotated
 from typing import Literal, List
 from fastapi.responses import JSONResponse
 import json
@@ -35,6 +35,15 @@ class Patient(BaseModel):
             return "Overweight"
         else:
             return "Obesity"
+class PatientUpdate(BaseModel):
+    name: Annotated[Optional[str], Field(default=None)]
+    age: Annotated[Optional[int], Field(default=None,gt=0,lt=120)]
+    gender: Annotated[Optional[Literal["Male", "Female", "Other"]], Field(default=None)]
+    disease: Annotated[Optional[str], Field(default=None)]
+    phone: Annotated[Optional[str], Field(default=None)]
+    city: Annotated[Optional[str], Field(default=None)]
+    height: Annotated[Optional[float], Field(default=None,gt=0)]
+    weight: Annotated[Optional[float], Field(default=None,gt=0)]
 
 # --- Helper functions for JSON storage ---
 PATIENTS_FILE = "patients.json"
@@ -98,4 +107,22 @@ def create_patient(patient: Patient):
     data.append(patient.model_dump())
     save_data(data)
     return JSONResponse(content={"message": "Patient created successfully"})
+
+@app.put("/edit/{patient_id}")
+def update_patient(patient_id:int,patient_update:PatientUpdate):
+    data=load_data()
+    if patient_id not in data:
+        raise HTTPException(status_code=404, detail="Patient ID not found")
+    existing_patient_info=data[patient_id]
+    update_patient_info=patient_update.model_dump(exclude_unset=True)
+    existing_patient_info.update(update_patient_info)
+    for key,value in update_patient_info.items():
+        existing_patient_info[key]=value 
+    existing_patient_info['id']=patient_id
+    patient_pydantic_obj=Patient(**existing_patient_info)
+    existing_patient_info=patient_pydantic_obj.model_dump(exclude='id')
+    data[patient_id]=existing_patient_info
+    save_data(data)
+    return JSONResponse(content={"message": "Patient updated successfully"})
+    
     
