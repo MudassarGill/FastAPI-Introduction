@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Path, HTTPException, Query
 from pydantic import BaseModel, Field, computed_field,Annotated
-from typing import Literal, List
+from typing import Literal, List,Optional
 from fastapi.responses import JSONResponse
+from typing_extensions import Annotated
 import json
 import os
 
@@ -109,19 +110,26 @@ def create_patient(patient: Patient):
     return JSONResponse(content={"message": "Patient created successfully"})
 
 @app.put("/edit/{patient_id}")
-def update_patient(patient_id:int,patient_update:PatientUpdate):
-    data=load_data()
-    if patient_id not in data:
+def update_patient(patient_id: int, patient_update: PatientUpdate):
+    data = load_data()
+
+    # FIX 1: find index by id
+    patient_index = next((i for i, p in enumerate(data) if p["id"] == patient_id), None)
+    if patient_index is None:
         raise HTTPException(status_code=404, detail="Patient ID not found")
-    existing_patient_info=data[patient_id]
-    update_patient_info=patient_update.model_dump(exclude_unset=True)
+
+    existing_patient_info = data[patient_index]
+
+    update_patient_info = patient_update.model_dump(exclude_unset=True)
     existing_patient_info.update(update_patient_info)
-    for key,value in update_patient_info.items():
-        existing_patient_info[key]=value 
-    existing_patient_info['id']=patient_id
-    patient_pydantic_obj=Patient(**existing_patient_info)
-    existing_patient_info=patient_pydantic_obj.model_dump(exclude='id')
-    data[patient_id]=existing_patient_info
+
+    existing_patient_info["id"] = patient_id
+
+    patient_pydantic_obj = Patient(**existing_patient_info)
+
+    existing_patient_info = patient_pydantic_obj.model_dump(exclude={"id"})
+    data[patient_index] = existing_patient_info
+
     save_data(data)
     return JSONResponse(content={"message": "Patient updated successfully"})
     

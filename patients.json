@@ -18,7 +18,7 @@
         "age": 27,
         "gender": "Female",
         "Height": "5.5",
-        "Weight": "60",
+        "Weight": "60",    
         "BMI": "22.2",
         "Verdict": "Normal",
         "disease": "Hypertension",
